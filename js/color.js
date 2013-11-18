@@ -1,0 +1,1 @@
+var projects = [{'color': '#FF7F00', 'proj': 'postgresql'}, {'color': '#FF7F00', 'proj': 'libvirt'}, {'color': '#FF7F00', 'proj': 'virt-manager'}, {'color': '#FF7F00', 'proj': 'riak'}, {'color': '#FF7F00', 'proj': 'systemtap'}, {'color': '#FF7F00', 'proj': 'sysstat'}, {'color': '#FF7F00', 'proj': 'linux'}, {'color': '#FF7F00', 'proj': 'qemu'}]
