@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.chord path {
+  fill-opacity: .67;
+  stroke: #000;
+  stroke-width: .5px;
+}
+
+.group path {
+  fill-opacity: .5;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="./js/matrix.js"></script>
+<script type="text/javascript" src="./js/color.js"></script>
+<script>
+
+var width = 720,
+    height = 720,
+    outerRadius = Math.min(width, height) / 2 - 10,
+    innerRadius = outerRadius - 24;
+
+var formatPercent = d3.format(".1%");
+
+var arc = d3.svg.arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius);
+
+var layout = d3.layout.chord()
+    .padding(.04)
+    .sortSubgroups(d3.descending)
+    .sortChords(d3.ascending);
+
+var path = d3.svg.chord()
+    .radius(innerRadius);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+layout.matrix(matrix);
+
+var group = svg.selectAll(".group")
+    .data(layout.groups)
+  .enter().append("g")
+    .attr("class", "group")
+    .on("mouseover", mouseover);
+
+group.append("title").text(function(d, i) {
+  return projects[i].proj + ": " + formatPercent(d.value) + " of origins";
+});
+
+var groupPath = group.append("path")
+    .attr("id", function(d, i) { return "group" + i; })
+    .attr("d", arc)
+    .style("fill", function(d, i) { return projects[i].color; });
+
+var groupText = group.append("text")
+    .attr("x", 6)
+    .attr("dy", 15);
+
+groupText.append("textPath")
+    .attr("xlink:href", function(d, i) { return "#group" + i; })
+    .text(function(d, i) { return projects[i].proj; });
+
+groupText.filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 16 < this.getComputedTextLength(); })
+    .remove();
+
+var chord = svg.selectAll(".chord")
+    .data(layout.chords)
+  .enter().append("path")
+    .attr("class", "chord")
+    .style("fill", function(d) { return projects[d.source.index].color; })
+    .attr("d", path);
+
+chord.append("title").text(function(d) {
+  return projects[d.source.index].proj
+      + "&" + projects[d.target.index].proj
+      + ": " + formatPercent(d.source.value);
+});
+
+function mouseover(d, i) {
+  chord.classed("fade", function(p) {
+    return p.source.index != i
+        && p.target.index != i;
+  });
+}
+
+</script>
