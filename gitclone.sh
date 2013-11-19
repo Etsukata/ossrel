@@ -12,7 +12,6 @@ URLS=(
     "git://git.postgresql.org/git/postgresql.git"
 # Language
     "https://github.com/python/cpython.git"
-    "https://github.com/ruby/ruby.git"
     "https://github.com/erlang/otp.git"
     "https://github.com/ocaml/ocaml.git"
     "git://perl5.git.perl.org/perl.git"
