@@ -26,17 +26,17 @@ path.chord {
 
 </style>
 <body>
+<h1>OSS Relationship Visualization</h1>
+<h3>By <a href=https://twitter.com/Etsukata>@Etsukata</a></h3>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="./js/matrix.js"></script>
 <script type="text/javascript" src="./js/color.js"></script>
 <script>
 
-var width = 720,
+var width = 960,
     height = 720,
     outerRadius = Math.min(width, height) / 2 - 10,
     innerRadius = outerRadius - 24;
-
-var formatPercent = d3.format(".1%");
 
 var arc = d3.svg.arc()
     .innerRadius(innerRadius)
@@ -69,7 +69,7 @@ var group = svg.selectAll(".group")
     .on("mouseover", mouseover);
 
 group.append("title").text(function(d, i) {
-  return projects[i].proj + ": " + formatPercent(d.value) + " of origins";
+  return projects[i].proj + " common commits: " + Math.floor(d.value);
 });
 
 var groupPath = group.append("path")
@@ -85,7 +85,9 @@ groupText.append("textPath")
     .attr("xlink:href", function(d, i) { return "#group" + i; })
     .text(function(d, i) { return projects[i].proj; });
 
-groupText.filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 16 < this.getComputedTextLength(); })
+groupText.filter(function(d, i) {
+        return groupPath[0][i].getTotalLength() / 2 - 16 < this.getComputedTextLength();
+    })
     .remove();
 
 var chord = svg.selectAll(".chord")
@@ -99,7 +101,7 @@ var chord = svg.selectAll(".chord")
 chord.append("title").text(function(d) {
   return projects[d.source.index].proj
       + "&" + projects[d.target.index].proj
-      + ": " + formatPercent(d.source.value);
+      + ": " + Math.floor(d.source.value);
 });
 
 function mouseover(d, i) {
@@ -111,3 +113,4 @@ function mouseover(d, i) {
 }
 
 </script>
+</body>
