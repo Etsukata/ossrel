@@ -10,13 +10,21 @@ URLS=(
     "https://github.com/basho/riak.git"
     "https://github.com/mongodb/mongo.git"
     "git://git.postgresql.org/git/postgresql.git"
+    "https://github.com/apache/couchdb.git"
+    "https://github.com/antirez/redis.git"
 # Language
     "https://github.com/python/cpython.git"
     "https://github.com/erlang/otp.git"
     "https://github.com/ocaml/ocaml.git"
     "git://perl5.git.perl.org/perl.git"
+    "https://github.com/php/php-src.git"
+# Web
+    "https://github.com/apache/httpd.git"
+    "https://github.com/joyent/node.git"
 # OpenStack
     "https://github.com/openstack/nova.git"
+    "https://github.com/openstack/neutron.git"
+    "https://github.com/openstack/swift.git"
 )
 
 for url in ${URLS[@]}
