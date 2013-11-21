@@ -69,7 +69,7 @@ var group = svg.selectAll(".group")
     .on("mouseover", mouseover);
 
 group.append("title").text(function(d, i) {
-  return projects[i].proj + " common commits: " + Math.floor(d.value);
+  return projects[i].proj;
 });
 
 var groupPath = group.append("path")
@@ -101,7 +101,7 @@ var chord = svg.selectAll(".chord")
 chord.append("title").text(function(d) {
   return projects[d.source.index].proj
       + "&" + projects[d.target.index].proj
-      + ": " + Math.floor(d.source.value);
+      + ": " + Math.floor(d.source.value * d.source.value);
 });
 
 function mouseover(d, i) {

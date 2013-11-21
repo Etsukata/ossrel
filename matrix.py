@@ -4,6 +4,7 @@
 """
 
 import os
+from math import sqrt
 
 def calc_rel(ranka, rankb):
     """ calculate OSS ranking relativity by summing up commits number
@@ -13,7 +14,7 @@ def calc_rel(ranka, rankb):
     for name, count in ranka.items():
         if rankb.has_key(name):
             common += min(count, rankb[name])
-    return common
+    return sqrt(common)
 
 def main():
 
